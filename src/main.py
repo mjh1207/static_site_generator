@@ -1,7 +1,8 @@
-from textnode import TextNode
+from textnode import TextNode, text_node_to_html_node
 from htmlnode import HtmlNode
 from leafnode import LeafNode
 from parentnode import ParentNode
+
 
 def main():
     node = TextNode("This is a text node", "bold")
@@ -14,6 +15,7 @@ def main():
         LeafNode(None, "Normal text"),
     ], {"class": "my_class"})
 
-    print(parent_node.__repr__())
+    print(parent_node.to_html())
+    print(text_node_to_html_node(node).__repr__())
 
 main()
