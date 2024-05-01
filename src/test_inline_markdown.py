@@ -1,5 +1,9 @@
 import unittest
-from inline_markdown import split_nodes_delimiter
+from inline_markdown import (
+    split_nodes_delimiter,
+    extract_markdown_images,
+    extract_markdown_links    
+)
 from textnode import (
     TextNode,
     text_type_text,
@@ -74,3 +78,19 @@ class InlineMakrdown(unittest.TestCase):
         node1 = TextNode("This text has **invalid markup syntax", text_type_text)
         self.assertRaises(Exception, lambda: split_nodes_delimiter([node1], "**", text_type_bold))
                           
+
+    def test_extract_markdown_image(self):
+        text = "This is text with an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and ![another](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/dfsdkjfd.png)"
+        extracted_images = extract_markdown_images(text)
+        self.assertEqual(extracted_images, [
+            ("image", "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png"),
+            ("another", "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/dfsdkjfd.png")
+        ])
+    
+    def test_extract_markdown_link(self):
+        text = "This is text with a [link](https://www.example.com) and [another](https://www.example.com/another)"
+        extracted_links = extract_markdown_links(text)
+        self.assertEqual(extracted_links, [
+            ("link", "https://www.example.com"),
+            ("another", "https://www.example.com/another")
+        ])
