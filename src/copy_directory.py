@@ -15,8 +15,6 @@ def initialize_public_directory(current_path="", new_path=""):
     if not new_path:
         new_path = public_path
 
-    # List the contents of the static directory
-    print(current_path)
     static_contents = os.listdir(current_path)
     for element in static_contents:
         static_item = os.path.join(current_path, element)
