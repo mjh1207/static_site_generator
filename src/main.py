@@ -13,15 +13,14 @@ from block_markdown import (
     markdown_to_html_node
 
 )
+from copy_directory import (
+    delete_directory_contents,
+    initialize_public_directory
+)
 
 
 def main():
-    node = TextNode("This is a text node", "bold")
-    # print(node.__repr__())
-
-    markdown = """```console.log("Hello worldd")```"""
-    markdown_blocks = markdown_to_blocks(markdown)
-    markdown_to_html_node(markdown)
-    
+    delete_directory_contents('./public')
+    initialize_public_directory()
 
 main()
