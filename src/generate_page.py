@@ -14,7 +14,7 @@ def extract_title(markdown):
     raise Exception("All pages need a single h1 header")
 
 def generate_page(from_path, template_path, dest_path):
-    print(f"Generating page from {from_path} to {dest_path} using {template_path}")
+    print(f"Generating page from {from_path} to {dest_path.replace(".md", ".html")} using {template_path}")
 
     # Get page contents
     from_contents = ""
@@ -39,6 +39,15 @@ def generate_page(from_path, template_path, dest_path):
     dest_dir = os.path.dirname(dest_path)
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
-    with open(dest_path, "w") as new_file:
+    with open(dest_path.replace(".md", ".html"), "w") as new_file:
         new_file.write(template_contents)
     
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    dir_items = os.listdir(dir_path_content)
+    for item in dir_items:
+        source_path = f"{dir_path_content}/{item}"
+        dest_path = f"{dest_dir_path}/{item}"
+        if os.path.isdir(f"{dir_path_content}/{item}"):
+            generate_pages_recursive(source_path, template_path, dest_path)
+        else:
+            generate_page(source_path, template_path, dest_path)

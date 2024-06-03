@@ -1,4 +1,4 @@
-from generate_page import generate_page
+from generate_page import generate_pages_recursive
 
 from copy_directory import (
     delete_directory_contents,
@@ -9,7 +9,7 @@ from copy_directory import (
 def main():
     delete_directory_contents('./public')
     initialize_public_directory()
-    generate_page("./content/index.md", "./template.html", "./public/index.html")
+    generate_pages_recursive("./content", "./template.html", "./public")
     
 
 main()
