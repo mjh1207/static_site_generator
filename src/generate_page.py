@@ -36,7 +36,6 @@ def generate_page(from_path, template_path, dest_path):
     template_contents = template_contents.replace("{{ Content }}", html_content)
 
     # Write contents to new html file in dest_path
-
     dest_dir = os.path.dirname(dest_path)
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
